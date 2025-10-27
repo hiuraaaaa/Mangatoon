@@ -2,18 +2,19 @@ import React from 'react'
 
 type UploadResult = { name: string; ok: boolean; status: number; url?: string; error?: string }
 
-const ACCEPTED = ['image/jpeg', 'image/png', 'image/webp', 'image/avif']
+const ACCEPT_EXT = ['jpg', 'jpeg', 'png', 'webp', 'avif']
+const ACCEPT_MIME = ['image/jpeg', 'image/png', 'image/webp', 'image/avif']
 
 export default function GithubUploader() {
-  // Repo config
+  // Repo config (bisa disembunyikan di Advanced)
   const [owner, setOwner] = React.useState('hiuraaaaa')
   const [repo, setRepo] = React.useState('Mangatoon')
   const [branch, setBranch] = React.useState('main')
 
   // Auto list slug & chapter
   const [slugs, setSlugs] = React.useState<string[]>([])
-  const [slug, setSlug] = React.useState<string>('')              // dropdown selection
-  const [slugInput, setSlugInput] = React.useState('')            // manual new slug
+  const [slug, setSlug] = React.useState<string>('')          // pilih dari dropdown
+  const [slugInput, setSlugInput] = React.useState('')        // slug manual
   const [chapters, setChapters] = React.useState<number[]>([])
   const [chapter, setChapter] = React.useState<string>('1')
   const [suggestNext, setSuggestNext] = React.useState(true)
@@ -22,7 +23,7 @@ export default function GithubUploader() {
   const [files, setFiles] = React.useState<FileList | null>(null)
   const [rename, setRename] = React.useState(true)
   const [busy, setBusy] = React.useState(false)
-  const [progress, setProgress] = React.useState(0)               // 0..100
+  const [progress, setProgress] = React.useState(0)           // 0..100
   const [results, setResults] = React.useState<UploadResult[]>([])
   const [errors, setErrors] = React.useState<string[]>([])
   const [showAdvanced, setShowAdvanced] = React.useState(false)
@@ -42,29 +43,27 @@ export default function GithubUploader() {
     return btoa(String.fromCharCode(...new Uint8Array(buf)))
   }
 
-  // ==== Auto list data from API ====
+  // ===== Auto list dari API =====
   async function loadSlugs() {
     try {
       const p = new URLSearchParams({ owner, repo, path: 'public/manga' })
       const r = await fetch(`/api/github-list?${p.toString()}`)
       const j = await r.json()
       if (Array.isArray(j.items)) setSlugs(j.items)
-    } catch (e) {
+    } catch {
       setErrors(prev => [...prev, 'Gagal mengambil daftar seri dari GitHub.'])
     }
   }
-
   async function loadChapters(theSlug: string) {
     try {
       const p = new URLSearchParams({ owner, repo, path: 'public/manga', slug: theSlug })
       const r = await fetch(`/api/github-list?${p.toString()}`)
       const j = await r.json()
       if (Array.isArray(j.items)) setChapters(j.items as number[])
-    } catch (e) {
+    } catch {
       setErrors(prev => [...prev, `Gagal mengambil daftar chapter untuk ${theSlug}.`])
     }
   }
-
   React.useEffect(() => { loadSlugs() }, [owner, repo])
   React.useEffect(() => { if (slug) loadChapters(slug); else setChapters([]) }, [slug])
   React.useEffect(() => {
@@ -74,7 +73,7 @@ export default function GithubUploader() {
     }
   }, [chapters, suggestNext])
 
-  // ==== Drag & Drop ====
+  // ===== Drag & Drop =====
   const dropRef = React.useRef<HTMLDivElement | null>(null)
   React.useEffect(() => {
     const el = dropRef.current
@@ -86,7 +85,6 @@ export default function GithubUploader() {
       if (!dt) return
       const fl = dt.files
       if (!fl?.length) return
-      // Merge: replace current selection
       setFiles(fl)
     }
     ;['dragenter','dragover','dragleave','drop'].forEach(ev => el.addEventListener(ev, onPrevent))
@@ -97,26 +95,26 @@ export default function GithubUploader() {
     }
   }, [])
 
-  // ==== Validation ====
+  // ===== Validasi =====
   function validateSelection(): string[] {
     const errs: string[] = []
     if (!effectiveSlug) errs.push('Isi atau pilih slug terlebih dahulu.')
     if (!chapter || !/^\d+$/.test(chapter)) errs.push('Chapter harus angka (contoh: 1, 2, 3).')
     if (!files || files.length === 0) errs.push('Pilih minimal satu file untuk diupload.')
+
     if (files) {
       for (const f of Array.from(files)) {
-        if (!ACCEPTED.includes(f.type)) {
-          errs.push(`Tipe file tidak didukung: ${f.name} (${f.type || 'unknown'})`)
-        }
-        if (f.size > 25 * 1024 * 1024) {
-          errs.push(`File terlalu besar (>25MB): ${f.name}`)
-        }
+        const ext = extOf(f.name)
+        const okMime = f.type && ACCEPT_MIME.includes(f.type)
+        const okExt = ACCEPT_EXT.includes(ext)
+        if (!okMime && !okExt) errs.push(`Tipe/ekstensi tidak didukung: ${f.name}`)
+        if (f.size > 25 * 1024 * 1024) errs.push(`File terlalu besar (>25MB): ${f.name}`)
       }
     }
     return errs
   }
 
-  // ==== API call per-file (aman dari limit payload) ====
+  // ===== Upload per-file (anti limit body) =====
   async function uploadOne(basePath: string, name: string, b64: string) {
     const r = await fetch('/api/github-upload', {
       method: 'POST',
@@ -124,7 +122,7 @@ export default function GithubUploader() {
       body: JSON.stringify({
         owner, repo, branch,
         basePath,
-        files: [{ name, contentBase64: b64 }],
+        files: [{ name, contentBase64: b64 }], // satu file per request
         overwrite: true
       })
     })
@@ -135,7 +133,7 @@ export default function GithubUploader() {
       ok,
       status: item?.status ?? r.status,
       url: item?.url,
-      error: item?.body || j?.error || 'unknown'
+      error: item?.body || j?.error || (!r.ok ? `HTTP ${r.status}` : 'unknown')
     }
   }
 
@@ -143,6 +141,7 @@ export default function GithubUploader() {
     e.preventDefault()
     setErrors([])
     setResults([])
+
     const errs = validateSelection()
     if (errs.length) { setErrors(errs); return }
 
@@ -154,28 +153,36 @@ export default function GithubUploader() {
     setBusy(true)
     setProgress(0)
 
-    let done = 0
     for (let i = 0; i < list.length; i++) {
       const f = list[i]
       const name = rename ? `${pad3(i + 1)}.${extOf(f.name)}` : f.name
-      const b64 = await fileToBase64(f)
-      const resp = await uploadOne(basePath, name, b64)
 
-      setResults(prev => [...prev, { name, ok: resp.ok, status: resp.status, url: resp.url, error: resp.error }])
-      done++
-      setProgress(Math.round((done / list.length) * 100))
+      try {
+        // progress saat mulai file (biar gak 0 terus)
+        setProgress(Math.max(1, Math.round((i / list.length) * 100)))
+
+        const b64 = await fileToBase64(f)
+        const resp = await uploadOne(basePath, name, b64)
+
+        setResults(prev => [...prev, { name, ok: resp.ok, status: resp.status, url: resp.url, error: resp.error }])
+      } catch (err: any) {
+        setResults(prev => [...prev, { name, ok: false, status: 0, error: err?.message || 'upload failed' }])
+      } finally {
+        // progress maju walau gagal
+        const done = i + 1
+        setProgress(Math.min(100, Math.max(1, Math.round((done / list.length) * 100))))
+      }
     }
 
     setBusy(false)
   }
 
-  // ==== UI ====
   return (
     <main className="container-page max-w-3xl mx-auto space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold">GitHub Uploader</h1>
         <div className="text-xs text-zinc-400">
-          {okCount + failCount > 0 ? (
+          {results.length > 0 ? (
             <span>
               Selesai: <span className="text-green-400">{okCount} OK</span> ·{' '}
               <span className="text-red-400">{failCount} gagal</span>
@@ -208,8 +215,12 @@ export default function GithubUploader() {
 
           <label className="space-y-1">
             <div className="text-sm font-medium">Atau slug baru</div>
-            <input className="input" placeholder="contoh: boss-sombong"
-                   value={slugInput} onChange={e => setSlugInput(e.target.value)} />
+            <input
+              className="input"
+              placeholder="contoh: boss-sombong"
+              value={slugInput}
+              onChange={e => setSlugInput(e.target.value)}
+            />
             <div className="text-xs text-zinc-400">Jika diisi, ini yang dipakai.</div>
           </label>
         </div>
@@ -226,8 +237,10 @@ export default function GithubUploader() {
         </div>
 
         {/* Dropzone */}
-        <div ref={dropRef}
-             className="rounded-xl border-2 border-dashed border-white/15 p-6 text-center bg-white/5 hover:bg-white/10 transition">
+        <div
+          ref={dropRef}
+          className="rounded-xl border-2 border-dashed border-white/15 p-6 text-center bg-white/5 hover:bg-white/10 transition"
+        >
           <div className="font-medium">Tarik & lepas gambar ke sini</div>
           <div className="text-xs text-zinc-400 mt-1">atau</div>
           <div className="mt-3">
@@ -326,4 +339,4 @@ export default function GithubUploader() {
       )}
     </main>
   )
-      }
+}
