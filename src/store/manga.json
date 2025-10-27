@@ -21,6 +21,15 @@
           "date": "2018-10-13",
           "likes": "100k",
           "comments": "3k"
+        }, 
+        {
+          "number": 2,
+          "title": "Episode 2",
+          "pages": 5,
+          "ext": "jpg",
+          "date": "2018-10-13",
+          "likes": "100k",
+          "comments": "3k"
         }
       ]
     }, 
