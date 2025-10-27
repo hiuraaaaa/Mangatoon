@@ -1,0 +1,245 @@
+{
+  "series": [
+    {
+      "slug": "frieren",
+      "title": "Sousou no Frieren",
+      "cover": "/manga/frieren/cover.jpg",
+      "tags": [
+        "romantis",
+        "CEO",
+        "asmara"
+      ],
+      "rating": 4.8,
+      "views": "900.6M",
+      "likes": "15.1M",
+      "chapters": [
+        {
+          "number": 1,
+          "title": "Episode 1",
+          "pages": 6,
+          "ext": "webp",
+          "date": "2018-10-13",
+          "likes": "100k",
+          "comments": "3k"
+        },
+        {
+          "number": 2,
+          "title": "Episode 2",
+          "pages": 4,
+          "ext": "jpg",
+          "date": "2018-10-14",
+          "likes": "98k",
+          "comments": "4k"
+        },
+        {
+          "number": 3,
+          "title": "Episode 3",
+          "pages": 8,
+          "ext": "png",
+          "date": "2018-10-15",
+          "likes": "93.k",
+          "comments": "6k"
+        },
+        {
+          "number": 4,
+          "title": "Episode 4",
+          "pages": 8,
+          "ext": "png",
+          "date": "2018-10-16",
+          "likes": "92.k",
+          "comments": "3k"
+        },
+        {
+          "number": 5,
+          "title": "Episode 5",
+          "pages": 8,
+          "ext": "png",
+          "date": "2018-10-17",
+          "likes": "91.k",
+          "comments": "4k"
+        },
+        {
+          "number": 6,
+          "title": "Episode 6",
+          "pages": 8,
+          "ext": "png",
+          "date": "2018-10-18",
+          "likes": "90.k",
+          "comments": "5k"
+        },
+        {
+          "number": 7,
+          "title": "Episode 7",
+          "pages": 8,
+          "ext": "png",
+          "date": "2018-10-19",
+          "likes": "89.k",
+          "comments": "6k"
+        },
+        {
+          "number": 8,
+          "title": "Episode 8",
+          "pages": 8,
+          "ext": "png",
+          "date": "2018-10-20",
+          "likes": "88.k",
+          "comments": "3k"
+        },
+        {
+          "number": 9,
+          "title": "Episode 9",
+          "pages": 8,
+          "ext": "png",
+          "date": "2018-10-21",
+          "likes": "87.k",
+          "comments": "4k"
+        },
+        {
+          "number": 10,
+          "title": "Episode 10",
+          "pages": 8,
+          "ext": "png",
+          "date": "2018-10-22",
+          "likes": "86.k",
+          "comments": "5k"
+        },
+        {
+          "number": 11,
+          "title": "Episode 11",
+          "pages": 8,
+          "ext": "png",
+          "date": "2018-10-23",
+          "likes": "85.k",
+          "comments": "6k"
+        },
+        {
+          "number": 12,
+          "title": "Episode 12",
+          "pages": 8,
+          "ext": "png",
+          "date": "2018-10-24",
+          "likes": "84.k",
+          "comments": "3k"
+        },
+        {
+          "number": 13,
+          "title": "Episode 13",
+          "pages": 8,
+          "ext": "png",
+          "date": "2018-10-25",
+          "likes": "83.k",
+          "comments": "4k"
+        },
+        {
+          "number": 14,
+          "title": "Episode 14",
+          "pages": 8,
+          "ext": "png",
+          "date": "2018-10-26",
+          "likes": "82.k",
+          "comments": "5k"
+        },
+        {
+          "number": 15,
+          "title": "Episode 15",
+          "pages": 8,
+          "ext": "png",
+          "date": "2018-10-13",
+          "likes": "81.k",
+          "comments": "6k"
+        },
+        {
+          "number": 16,
+          "title": "Episode 16",
+          "pages": 8,
+          "ext": "png",
+          "date": "2018-10-14",
+          "likes": "80.k",
+          "comments": "3k"
+        },
+        {
+          "number": 17,
+          "title": "Episode 17",
+          "pages": 8,
+          "ext": "png",
+          "date": "2018-10-15",
+          "likes": "79.k",
+          "comments": "4k"
+        },
+        {
+          "number": 18,
+          "title": "Episode 18",
+          "pages": 8,
+          "ext": "png",
+          "date": "2018-10-16",
+          "likes": "78.k",
+          "comments": "5k"
+        },
+        {
+          "number": 19,
+          "title": "Episode 19",
+          "pages": 8,
+          "ext": "png",
+          "date": "2018-10-17",
+          "likes": "77.k",
+          "comments": "6k"
+        },
+        {
+          "number": 20,
+          "title": "Episode 20",
+          "pages": 8,
+          "ext": "png",
+          "date": "2018-10-18",
+          "likes": "76.k",
+          "comments": "3k"
+        }
+      ]
+    }, 
+    {
+      "slug": "zombie",
+      "title": "Zombie Papa",
+      "cover": "/manga/zombie/cover.png",
+      "tags": [
+        "slice of life",
+        "action"
+      ],
+      "rating": 4.6,
+      "views": "12.1M",
+      "likes": "321k",
+      "chapters": [
+        {
+          "number": 1,
+          "title": "Zombie Papa",
+          "pages": 3,
+          "ext": "png",
+          "date": "2021-02-01",
+          "likes": "1.2k",
+          "comments": "120"
+        }
+      ]
+    }, 
+    {
+      "slug": "reality",
+      "title": "Reality Quest",
+      "cover": "/manga/reality/cover.png",
+      "tags": [
+        "slice of life",
+        "action"
+      ],
+      "rating": 4.6,
+      "views": "12.1M",
+      "likes": "321k",
+      "chapters": [
+        {
+          "number": 1,
+          "title": "Reality Quest",
+          "pages": 3,
+          "ext": "png",
+          "date": "2021-02-01",
+          "likes": "1.2k",
+          "comments": "120"
+        }
+      ]
+    }
+  ]
+}
