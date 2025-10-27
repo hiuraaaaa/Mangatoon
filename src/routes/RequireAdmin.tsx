@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom'
 import { useAuth } from '../lib/AuthContext'
 
 // Ganti email ini dengan email Google kamu
-const ADMINS = ['emailkamu@gmail.com']
+const ADMINS = ['robbiens4r@gmail.com']
 
 export default function RequireAdmin({ children }: { children: JSX.Element }) {
   const { user, loading } = useAuth()
