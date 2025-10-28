@@ -4,11 +4,7 @@
       "slug": "frieren",
       "title": "Sousou no Frieren",
       "cover": "/manga/frieren/cover.jpg",
-      "tags": [
-        "romantis",
-        "CEO",
-        "asmara"
-      ],
+      "tags": ["romantis", "CEO", "asmara"],
       "rating": 4.8,
       "views": "900.6M",
       "likes": "15.1M",
@@ -21,7 +17,7 @@
           "date": "2018-10-13",
           "likes": "100k",
           "comments": "3k"
-        }, 
+        },
         {
           "number": 2,
           "title": "Episode 2",
@@ -32,15 +28,12 @@
           "comments": "3k"
         }
       ]
-    }, 
+    },
     {
       "slug": "zombie",
       "title": "Zombie Papa",
       "cover": "/manga/zombie/cover.png",
-      "tags": [
-        "slice of life",
-        "action"
-      ],
+      "tags": ["slice of life", "action"],
       "rating": 4.6,
       "views": "12.1M",
       "likes": "321k",
@@ -55,15 +48,12 @@
           "comments": "120"
         }
       ]
-    }, 
+    },
     {
       "slug": "solomax",
       "title": "Solo max newbie",
       "cover": "/manga/solomax/cover.png",
-      "tags": [
-        "slice of life",
-        "action"
-      ],
+      "tags": ["slice of life", "action"],
       "rating": 4.6,
       "views": "12.1M",
       "likes": "321k",
@@ -76,15 +66,14 @@
           "date": "2021-02-01",
           "likes": "1.2k",
           "comments": "120"
-        }, 
-      {
+        }
+      ]
+    },
+    {
       "slug": "reality",
       "title": "Reality Quest",
       "cover": "/manga/reality/cover.png",
-      "tags": [
-        "slice of life",
-        "action"
-      ],
+      "tags": ["slice of life", "action"],
       "rating": 4.6,
       "views": "12.1M",
       "likes": "321k",
