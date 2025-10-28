@@ -1,4 +1,3 @@
-
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
@@ -6,6 +5,7 @@ import './index.css'
 import { AuthProvider } from './lib/AuthContext'
 import RequireAuth from './components/RequireAuth'
 
+// Routes utama
 import Shell from './routes/Shell'
 import Home from './routes/Home'
 import Search from './routes/Search'
@@ -15,8 +15,15 @@ import Reader from './routes/Reader'
 import Admin from './routes/Admin'
 import Login from './routes/Login'
 
+// Tambahan uploader
+import RequireAdmin from './routes/RequireAdmin'
+import GithubUploader from './routes/GithubUploader'
+
 const router = createBrowserRouter([
+  // Login page
   { path: '/login', element: <Login /> },
+
+  // Semua halaman di bawah ini butuh login dulu
   {
     path: '/',
     element: (
@@ -31,7 +38,17 @@ const router = createBrowserRouter([
       { path: 'daftar-bacaan', element: <Library /> },
       { path: 'manga/:slug', element: <Series /> },
       { path: 'manga/:slug/:chapter', element: <Reader /> },
-      { path: 'admin', element: <Admin /> }
+      { path: 'admin', element: <Admin /> },
+
+      // 🆕 Tambahan halaman uploader
+      {
+        path: 'uploader',
+        element: (
+          <RequireAdmin>
+            <GithubUploader />
+          </RequireAdmin>
+        )
+      }
     ]
   }
 ])
