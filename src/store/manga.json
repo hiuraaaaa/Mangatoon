@@ -57,6 +57,27 @@
       ]
     }, 
     {
+      "slug": "solomax",
+      "title": "Solo max newbie",
+      "cover": "/manga/solomax/cover.png",
+      "tags": [
+        "slice of life",
+        "action"
+      ],
+      "rating": 4.6,
+      "views": "12.1M",
+      "likes": "321k",
+      "chapters": [
+        {
+          "number": 1,
+          "title": "Reality Quest",
+          "pages": 3,
+          "ext": "png",
+          "date": "2021-02-01",
+          "likes": "1.2k",
+          "comments": "120"
+        }, 
+      {
       "slug": "reality",
       "title": "Reality Quest",
       "cover": "/manga/reality/cover.png",
